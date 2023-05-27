@@ -1,4 +1,3 @@
-public class Menu {
 
 public class NewJPanel extends javax.swing.JPanel {
 
@@ -184,6 +183,4 @@ public class NewJPanel extends javax.swing.JPanel {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration                   
-}
-
 }

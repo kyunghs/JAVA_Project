@@ -170,7 +170,7 @@ public class LongTyping extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        System.exit(0); // 그만하기 버튼 누르면 종료
     }
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {

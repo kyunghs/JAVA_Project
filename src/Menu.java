@@ -175,9 +175,11 @@ public class Menu extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     }                                        
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    
+    public void jButton3ActionPerformed(java.awt.event.ActionEvent evt) { 
+        LongTyping longTyping = new LongTyping();
+        longTyping.setVisible(true);
+        dispose();
     }                                        
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -185,7 +187,10 @@ public class Menu extends javax.swing.JFrame {
     }                                        
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        Mypage mypage = new Mypage();
+        mypage.setVisible(true);
+        dispose();
+
     }                                        
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         

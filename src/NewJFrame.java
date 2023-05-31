@@ -127,6 +127,9 @@ public class NewJFrame extends javax.swing.JFrame {
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButton1MousePressed(evt);
+                Menu menu = new Menu();     // 일단 로그인 버튼 누르면 메인메뉴로 가게끔 코딩함
+                menu.setVisible(true);    // 내용은 위와 동일
+                dispose();                  // 내용은 위와 동일
             }
         });
         jButton1.addActionListener(new java.awt.event.ActionListener() {

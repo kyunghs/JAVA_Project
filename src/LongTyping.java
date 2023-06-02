@@ -64,6 +64,10 @@ public class LongTyping extends javax.swing.JFrame {
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
+                String enteredText = jTextField2.getText();
+                String compareText = jTextField1.getText();
+                int result = compareText.compareTo(enteredText);
+                
             }
         });
 

@@ -49,6 +49,9 @@ public class LongTyping extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+                Menu menu = new Menu();
+                menu.setVisible(true);
+                dispose();
             }
         });
 

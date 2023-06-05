@@ -3,16 +3,40 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 import java.util.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 
 /**
  *
  * @author rudgu
  */
 public class LongTyping extends javax.swing.JFrame {
+    private Stopwatch stopwatch;
+    private Timer timer;
+    private long elapsedTime;
+    private long hours;
+    private long minutes;
+    private long seconds;
 
     /**
      * Creates new form LongTyping
      */
+
+     private void updateTimerLabel() {
+        elapsedTime = stopwatch.getElapsedTime() / 1000;
+        hours = elapsedTime / 3600;
+        minutes = (elapsedTime % 3600) / 60;
+        seconds = elapsedTime % 60;
+
+        jLabel2.setText(String.format("플레이 시간: %02d:%02d:%02d", hours, minutes, seconds));
+
+    }
     public LongTyping() {
         initComponents();
     }
@@ -37,6 +61,7 @@ public class LongTyping extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
+        
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,6 +70,9 @@ public class LongTyping extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("맑은 고딕", 1, 30)); // NOI18N
         jLabel1.setText("짧은글 쓰기 연습");
 
+        jLabel2.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
+        
+
         jButton1.setText("그만하기");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,13 +80,24 @@ public class LongTyping extends javax.swing.JFrame {
                 Menu menu = new Menu();
                 menu.setVisible(true);
                 dispose();
+                timer.stop();
             }
         });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel2.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
-        jLabel2.setText("플레이 시간 / nn:nn");
+
+
+        stopwatch = new Stopwatch();
+
+        
+        timer = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                updateTimerLabel();
+            }
+        }); 
+        timer.start();   
+
 
         jProgressBar1.setBackground(new java.awt.Color(153, 255, 255));
 
@@ -73,7 +112,25 @@ public class LongTyping extends javax.swing.JFrame {
 
         jTextField2.setFont(new java.awt.Font("맑은 고딕", 0, 21)); // NOI18N
         jTextField2.setText("다음 문장을 입력하세요.");
+
+        
+        jTextField2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                jTextField2.setText("");   // 텍스트 필드 비워주기
+                stopwatch.start();
+                if (!timer.isRunning()) {
+                    timer.start();
+                }
+                
+
+            }
+        });
+
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
+
+            
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
                 String userInput = jTextField2.getText();
@@ -83,18 +140,23 @@ public class LongTyping extends javax.swing.JFrame {
                 int userLength = userInput.length();
 
                 int correctCount = 0;
-
-                int backSpaceCount = countBackspaces(userInput); //백스페이스 카운트를 위한 코드
-                public void countBackspaces(String userInput) {
-                    int backcount = 0;
-                    for (int i = 0; i < userInput.length(); i++) {
-                        if (userInput.charAt(i) == '\b') {
-                            backcount++;
-                        }
-                    }
-                    return backcount;           //이상한 오류로 인해 작동이 안되고 있음
-
+                int backSpacenum = 0;
+                if(evt.getModifiers() == KeyEvent.VK_BACK_SPACE){
+                    backSpacenum++;
                 }
+                
+
+                // int backSpaceCount = countBackspaces(userInput); //백스페이스 카운트를 위한 코드
+                // public void countBackspaces(String userInput) {
+                //     int backcount = 0;
+                //     for (int i = 0; i < userInput.length(); i++) {
+                //         if (userInput.charAt(i) == '\b') {
+                //             backcount++;
+                //         }
+                //     }
+                //     return backcount;           //이상한 오류로 인해 작동이 안되고 있음
+
+                // }
                 
                 for (int i = 0; i < Math.min(targetLength, userLength); i++) {
                     if (targetText.charAt(i) == userInput.charAt(i)) {
@@ -109,7 +171,7 @@ public class LongTyping extends javax.swing.JFrame {
                 int typingSpeed = Math.min(targetLength, userLength);
                 double accuracy = (double) correctCount / typingSpeed * 100;
 
-                System.out.println("백스페이스: " + backcount);
+                System.out.println("백스페이스: " + backSpacenum);
                 System.out.println("현재 타수: ");
                 System.out.println("타수: " + typingSpeed);
                 System.out.println("정확도: " + accuracy + "%");

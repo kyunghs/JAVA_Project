@@ -78,29 +78,46 @@ public class LongTyping extends javax.swing.JFrame {
                 jTextField2ActionPerformed(evt);
                 String userInput = jTextField2.getText();
                 String targetText = jLabel8.getText();
-                
-                
 
                 int targetLength = targetText.length();
                 int userLength = userInput.length();
 
                 int correctCount = 0;
+
+                int backSpaceCount = countBackspaces(userInput); //백스페이스 카운트를 위한 코드
+                public void countBackspaces(String userInput) {
+                    int backcount = 0;
+                    for (int i = 0; i < userInput.length(); i++) {
+                        if (userInput.charAt(i) == '\b') {
+                            backcount++;
+                        }
+                    }
+                    return backcount;           //이상한 오류로 인해 작동이 안되고 있음
+
+                }
+                
                 for (int i = 0; i < Math.min(targetLength, userLength); i++) {
                     if (targetText.charAt(i) == userInput.charAt(i)) {
                         correctCount++;
                     }
-        }
 
-        int typoCount = Math.abs(targetLength - userLength);
+                    
+                }
 
-        int typingSpeed = Math.min(targetLength, userLength);
-        double accuracy = (double) correctCount / typingSpeed * 100;
+                int typoCount = Math.abs(targetLength - userLength);
 
-        System.out.println("타수: " + typingSpeed);
-        System.out.println("정확도: " + accuracy + "%");
-        System.out.println("오타 수: " + typoCount);
-        jTextField2.setText("");
+                int typingSpeed = Math.min(targetLength, userLength);
+                double accuracy = (double) correctCount / typingSpeed * 100;
+
+                System.out.println("백스페이스: " + backcount);
+                System.out.println("현재 타수: ");
+                System.out.println("타수: " + typingSpeed);
+                System.out.println("정확도: " + accuracy + "%");
+                System.out.println("오타 수: " + typoCount);
+                jTextField2.setText("");
             }
+
+            
         });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
